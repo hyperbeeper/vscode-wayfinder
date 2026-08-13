@@ -1,7 +1,7 @@
 {
   "name": "wayfinder",
   "displayName": "WayFinder",
-  "description": "A focused starting point for navigating VS Code workbench destinations.",
+  "description": "Focus VS Code workbench destinations from one searchable selector.",
   "version": "0.0.1",
   "publisher": "local-dev",
   "license": "MIT",
@@ -11,17 +11,65 @@
   "categories": [
     "Other"
   ],
-  "activationEvents": [
-    "onCommand:wayfinder.helloWorld"
-  ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "wayfinder.helloWorld",
-        "title": "WayFinder: Hello World"
+        "command": "wayfinder.openSelector",
+        "title": "WayFinder: Focus..."
       }
-    ]
+    ],
+    "keybindings": [
+      {
+        "command": "wayfinder.openSelector",
+        "key": "ctrl+alt+f",
+        "mac": "cmd+alt+f"
+      }
+    ],
+    "configuration": {
+      "title": "WayFinder",
+      "properties": {
+        "wayfinder.customFocusTargets": {
+          "type": "array",
+          "default": [],
+          "description": "Additional focus targets to show in the WayFinder selector.",
+          "items": {
+            "type": "object",
+            "required": [
+              "label",
+              "command"
+            ],
+            "properties": {
+              "label": {
+                "type": "string",
+                "description": "The label shown in the selector."
+              },
+              "description": {
+                "type": "string",
+                "description": "Optional secondary text shown beside the label."
+              },
+              "detail": {
+                "type": "string",
+                "description": "Optional detail text shown below the label."
+              },
+              "icon": {
+                "type": "string",
+                "description": "Optional codicon name, for example `symbol-misc`."
+              },
+              "command": {
+                "type": "string",
+                "description": "The command to execute when the target is selected."
+              },
+              "args": {
+                "type": "array",
+                "description": "Optional JSON-compatible arguments passed to the command."
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      }
+    }
   },
   "scripts": {
     "compile": "tsc -p ./",

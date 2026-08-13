@@ -1,5 +1,7 @@
 import * as vscode from 'vscode';
 
+import { openSelector } from './selector';
+
 /**
  * Called by VS Code when the extension is activated.
  *
@@ -7,14 +9,12 @@ import * as vscode from 'vscode';
  * separate modules as the extension grows.
  */
 export function activate(context: vscode.ExtensionContext): void {
-  const helloWorldCommand = vscode.commands.registerCommand(
-    'wayfinder.helloWorld',
-    () => {
-      void vscode.window.showInformationMessage('WayFinder is ready.');
-    },
+  const openSelectorCommand = vscode.commands.registerCommand(
+    'wayfinder.openSelector',
+    () => openSelector(),
   );
 
-  context.subscriptions.push(helloWorldCommand);
+  context.subscriptions.push(openSelectorCommand);
 }
 
 /** Called by VS Code before the extension is unloaded. */
